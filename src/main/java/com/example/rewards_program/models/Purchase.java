@@ -9,6 +9,8 @@ import java.math.RoundingMode;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+// Represents a purchase made by a customer
+// Each transaction can include many items (products) in different quantities
 @Entity
 @NoArgsConstructor
 @Data

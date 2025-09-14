@@ -6,6 +6,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+// Includes how many of each product were purchased in a given purchase
 @Entity
 @Data
 @Table(name = "purchase_details")

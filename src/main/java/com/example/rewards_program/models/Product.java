@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+// Represents a product that can be purchased
+// Stores price per unit and unit of measurement
 @Entity
 @Data
 @NoArgsConstructor
