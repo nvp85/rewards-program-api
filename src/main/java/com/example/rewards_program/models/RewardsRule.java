@@ -1,5 +1,6 @@
 package com.example.rewards_program.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,8 +18,9 @@ public class RewardsRule {
     private Long id;
     private String description;
     private Integer pointsPerDollar;
-    private Double minimumTotalPurchase;
-    private Double maximumTotalPurchase;
+    private Long minimumTotalPurchase;
+    private Long maximumTotalPurchase = Long.MAX_VALUE;
+    @Column(nullable = false)
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
 }
