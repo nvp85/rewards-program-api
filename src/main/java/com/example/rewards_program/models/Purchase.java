@@ -18,17 +18,20 @@ public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long customerId;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
     private ZonedDateTime purchaseDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "purchase")
     private List<PurchaseDetails> purchaseDetailsList;
     // total point earned for this purchase
-    // they are calculated and saved for convenience of querying
-    //private Integer totalRewardPoints;
+    @Transient
+    private Long totalRewardPoints;
 
     @Transient
-    private BigDecimal getTotalDollars(){
+    public BigDecimal getTotalDollars(){
         return this.purchaseDetailsList.stream()
                 .map(PurchaseDetails::getTotalPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
