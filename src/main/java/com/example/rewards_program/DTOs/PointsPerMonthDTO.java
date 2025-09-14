@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PointsPerMonthDTO {
     private String month;
-    private Integer points;
+    private Long points;
 }

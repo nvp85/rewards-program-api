@@ -12,7 +12,7 @@ import java.util.List;
 public class CustomerRewardsDTO {
     private Long customerId;
     private String customerName;
-    private Integer totalPoints;
+    private Long totalPoints;
     private List<PointsPerMonthDTO> pointsPerMonth;
 
 }
