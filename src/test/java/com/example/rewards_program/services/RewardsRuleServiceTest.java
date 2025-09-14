@@ -51,4 +51,32 @@ class RewardsRuleServiceTest {
         assertEquals(40L, points);
 
     }
+
+    @Test
+    void calculateRewardPointsZero() {
+        Purchase purchase = Mockito.mock(Purchase.class);
+        when(purchase.getPurchaseDate()).thenReturn(java.time.ZonedDateTime.now());
+        when(purchase.getTotalDollars()).thenReturn(BigDecimal.valueOf(20.67));
+
+        Long points = service.calculateRewardPoints(rule1, purchase);
+        assertEquals(0L, points);
+
+        points = service.calculateRewardPoints(rule2, purchase);
+        assertEquals(0L, points);
+
+    }
+
+    @Test
+    void calculateRewardPointsRule1() {
+        Purchase purchase = Mockito.mock(Purchase.class);
+        when(purchase.getPurchaseDate()).thenReturn(java.time.ZonedDateTime.now());
+        when(purchase.getTotalDollars()).thenReturn(BigDecimal.valueOf(70.67));
+
+        Long points = service.calculateRewardPoints(rule1, purchase);
+        assertEquals(20L, points);
+
+        points = service.calculateRewardPoints(rule2, purchase);
+        assertEquals(0L, points);
+
+    }
 }
