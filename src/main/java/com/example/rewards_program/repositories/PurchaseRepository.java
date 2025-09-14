@@ -10,7 +10,7 @@ import java.util.List;
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
 
     // Fetch associated customer and purchase details with products to avoid n+1 problem
-    @EntityGraph(attributePaths = {"customer", "purchaseDetails", "purchaseDetails.product"})
+    @EntityGraph(attributePaths = {"customer", "purchaseDetailsList", "purchaseDetailsList.product"})
     List<Purchase> findByPurchaseDateBetween(ZonedDateTime from, ZonedDateTime to);
 
 }

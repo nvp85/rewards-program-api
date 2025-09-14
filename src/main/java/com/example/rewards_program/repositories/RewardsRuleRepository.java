@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface RewardsRuleRepository extends JpaRepository<RewardsRule, Long> {
     @Query("""
-        SELECT rr FROM RewardRule rr
+        SELECT rr FROM RewardsRule rr
         WHERE (rr.startDate <= :to)
           AND (rr.endDate IS NULL OR rr.endDate >= :from)
         """)
