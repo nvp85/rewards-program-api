@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class RewardsRuleService {
 
     public boolean isApplicable(RewardsRule rule, Purchase purchase) {
-        return (purchase.getPurchaseDate().isBefore(rule.getEndDate()) || rule.getEndDate() == null)
+        return (rule.getEndDate() == null || purchase.getPurchaseDate().isBefore(rule.getEndDate()))
                 && purchase.getPurchaseDate().isAfter(rule.getStartDate());
     }
 
