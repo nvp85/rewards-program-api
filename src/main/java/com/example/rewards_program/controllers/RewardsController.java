@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.TimeZone;
 
 @RestController
 @RequestMapping("/api/rewards")
@@ -21,21 +24,24 @@ public class RewardsController {
 
 // example requests:
 // http://localhost:8080/api/rewards/summary
-// http://localhost:8080/api/rewards/summary?fromDate=2025-06-01T01:30:00.000-05:00&toDate=2025-09-30T01:30:00.000-05:00
+// http://localhost:8080/api/rewards/summary?fromDate=2025-06-01&toDate=2025-09-30
     @GetMapping("/summary")
     public ResponseEntity<?> getSummary(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) ZonedDateTime fromDate,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) ZonedDateTime toDate
-    ) {
-        if (fromDate == null) {
-            fromDate = ZonedDateTime.now().minusMonths(3);
-        }
-        if (toDate == null) {
-            toDate = ZonedDateTime.now();
-        }
-        if (fromDate.isAfter(toDate) || fromDate.isEqual(toDate)) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+            @RequestParam(required = false, defaultValue = "America/Chicago") String timeZone
+            )
+    {
+        if ((fromDate != null && toDate != null) && (fromDate.isAfter(toDate) || fromDate.isEqual(toDate))) {
             return ResponseEntity.badRequest().body("'fromDate' must be before 'toDate'");
         }
-        return ResponseEntity.ok().body(purchaseService.summarizeRewards(fromDate, toDate));
+        ZoneId zoneId = ZoneId.of(timeZone);
+        ZonedDateTime fromDateTime = (fromDate != null)
+                ? fromDate.atStartOfDay(zoneId)
+                : ZonedDateTime.now(zoneId).minusMonths(3);
+        ZonedDateTime toDateTime = (toDate != null)
+                ? toDate.atTime(23, 59, 59).atZone(zoneId)
+                : ZonedDateTime.now(zoneId);
+        return ResponseEntity.ok().body(purchaseService.summarizeRewards(fromDateTime, toDateTime));
     }
 }

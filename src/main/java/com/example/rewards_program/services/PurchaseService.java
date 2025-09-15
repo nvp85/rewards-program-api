@@ -29,6 +29,7 @@ public class PurchaseService {
         // Fetch purchases within the date range
         // The type of fetch is eager
         List<Purchase> purchases = purchaseRepository.findByPurchaseDateBetween(from, to);
+        // Fetch active reward rules within the date range
         List<RewardsRule> activeRules = rewardsRuleRepository.findActive(from, to);
         // Accumulate rewards per customer per month, total, and customer names in maps
         Map<Long, Map<String, Long>> customerRewardsMap = new HashMap<>();

@@ -28,8 +28,8 @@ class IntegrationTest {
         // based on the /resources/data.sql file
         String expectedJson = """
                 {
-                    "fromDate": "2025-06-01T00:00:00Z",
-                    "toDate": "2025-09-30T23:59:59Z",
+                    "fromDate": "2025-06-01T00:00:00-05:00",
+                    "toDate": "2025-09-30T23:59:59-05:00",
                     "customers": [
                         {
                             "customerId": 1,
@@ -55,8 +55,8 @@ class IntegrationTest {
                 }
                 """;
         mockMvc.perform(get("/api/rewards/summary")
-                        .param("fromDate", "2025-06-01T00:00:00Z")
-                        .param("toDate", "2025-09-30T23:59:59Z")
+                        .param("fromDate", "2025-06-01")
+                        .param("toDate", "2025-09-30")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
