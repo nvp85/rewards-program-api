@@ -55,8 +55,8 @@ class IntegrationTest {
                 }
                 """;
         mockMvc.perform(get("/api/rewards/summary")
-                        .param("fromDateStr", "2025-06-01T00:00:00Z")
-                        .param("toDateStr", "2025-09-30T23:59:59Z")
+                        .param("fromDate", "2025-06-01T00:00:00Z")
+                        .param("toDate", "2025-09-30T23:59:59Z")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
