@@ -6,6 +6,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.time.ZonedDateTime;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -51,7 +54,10 @@ class IntegrationTest {
                     ]
                 }
                 """;
-        mockMvc.perform(get("/api/rewards/summary").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/rewards/summary")
+                        .param("fromDateStr", "2025-06-01T00:00:00Z")
+                        .param("toDateStr", "2025-09-30T23:59:59Z")
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
     }
