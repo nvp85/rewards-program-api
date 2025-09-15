@@ -36,12 +36,12 @@ public class RewardsController {
             return ResponseEntity.badRequest().body("'fromDate' must be before 'toDate'");
         }
         ZoneId zoneId = ZoneId.of(timeZone);
-        ZonedDateTime fromDateTime = (fromDate != null)
-                ? fromDate.atStartOfDay(zoneId)
-                : ZonedDateTime.now(zoneId).minusMonths(3);
         ZonedDateTime toDateTime = (toDate != null)
                 ? toDate.atTime(23, 59, 59).atZone(zoneId)
                 : ZonedDateTime.now(zoneId);
+        ZonedDateTime fromDateTime = (fromDate != null)
+                ? fromDate.atStartOfDay(zoneId)
+                : toDateTime.minusMonths(3);
         return ResponseEntity.ok().body(purchaseService.summarizeRewards(fromDateTime, toDateTime));
     }
 }
