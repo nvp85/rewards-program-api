@@ -24,7 +24,7 @@ The Spring framework 6.2.10 (Spring Boot 3.5.5, Spring Web, Spring Data), H2 dat
 
 * Clone the repository
 ```
-git clone https://github.com/nvp85/web-ai-chat-full-stack.git
+git clone https://github.com/nvp85/rewards-program-api
 ```
 * In the project folder run
 ```
