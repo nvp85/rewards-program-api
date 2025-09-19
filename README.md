@@ -46,7 +46,7 @@ timeZone - IANA tz identifier, default: America/Chicago.
 
 Example:
 ```
-curl "http://localhost:8080/api/rewards/summary?from=2025-06-01&to=2025-08-31"
+curl "http://localhost:8080/api/rewards/summary?fromDate=2025-06-01&toDate=2025-08-31"
 ```
 
 Response JSON example:
